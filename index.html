@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiberata | A Melhor Internet 100% Fibra Óptica</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Orbitron (Display) e Inter (Apoio) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Phosphor Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Orbitron', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            dark: '#000000',
+                            card: '#0a0a0a',
+                            primary: '#8A2BFF',
+                            gradStart: '#C000FF',
+                            gradEnd: '#7A2FFF',
+                            light: '#F2F2F2'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-brand': 'linear-gradient(to right, #C000FF, #7A2FFF)',
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop')",
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Custom Styles for Glow Effects */
+        .glow-text {
+            text-shadow: 0 0 20px rgba(138, 43, 255, 0.5);
+        }
+        .glow-box:hover {
+            box-shadow: 0 0 30px rgba(138, 43, 255, 0.3);
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #C000FF, #7A2FFF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        /* Glassmorphism */
+        .glass {
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(138, 43, 255, 0.15);
+        }
+
+        /* Float Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        
+        body {
+            background-color: #000000;
+            color: #F2F2F2;
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/5518996102243?text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20planos%20da%20Fiberata." target="_blank" 
+       class="fixed bottom-6 right-6 z-50 bg-[#25D366] text-white p-4 rounded-full shadow-[0_0_20px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform duration-300 flex items-center justify-center animate-float">
+        <i class="ph ph-whatsapp-logo text-3xl"></i>
+    </a>
+
+    <!-- Navbar -->
+    <nav class="fixed w-full z-40 glass border-b border-brand-primary/20 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="#" class="flex items-center">
+                        <span class="text-2xl md:text-3xl font-display font-bold tracking-wider">
+                            <span class="text-white">FIBER</span><span class="text-brand-primary">ATA</span>
+                        </span>
+                    </a>
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#inicio" class="text-brand-light hover:text-brand-primary transition-colors font-medium">Início</a>
+                    <a href="#sobre" class="text-brand-light hover:text-brand-primary transition-colors font-medium">Sobre Nós</a>
+                    <a href="#vantagens" class="text-brand-light hover:text-brand-primary transition-colors font-medium">Vantagens</a>
+                    <a href="#planos" class="text-brand-light hover:text-brand-primary transition-colors font-medium">Planos</a>
+                    
+                    <a href="https://fiberata.com.br/central/login.hhvm" target="_blank" class="text-brand-light hover:text-white flex items-center gap-2 font-medium transition-colors">
+                        <i class="ph ph-user-circle text-xl text-brand-primary"></i>
+                        Área do Cliente
+                    </a>
+
+                    <a href="https://wa.me/5518996102243?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20quero%20assinar%20a%20Fiberata." target="_blank" 
+                       class="bg-gradient-brand text-white px-6 py-2.5 rounded-full font-semibold hover:shadow-[0_0_20px_rgba(138,43,255,0.4)] transition-all duration-300 transform hover:-translate-y-0.5 font-display tracking-wide">
+                        Assinar Agora
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-brand-light hover:text-white focus:outline-none">
+                        <i class="ph ph-list text-3xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-brand-primary/20 absolute w-full">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#inicio" class="block px-3 py-2 text-base font-medium text-brand-light hover:text-white hover:bg-white/5 rounded-md">Início</a>
+                <a href="#sobre" class="block px-3 py-2 text-base font-medium text-brand-light hover:text-white hover:bg-white/5 rounded-md">Sobre Nós</a>
+                <a href="#vantagens" class="block px-3 py-2 text-base font-medium text-brand-light hover:text-white hover:bg-white/5 rounded-md">Vantagens</a>
+                <a href="#planos" class="block px-3 py-2 text-base font-medium text-brand-light hover:text-white hover:bg-white/5 rounded-md">Planos</a>
+                <a href="https://fiberata.com.br/central/login.hhvm" target="_blank" class="block px-3 py-2 text-base font-medium text-brand-primary hover:text-white hover:bg-white/5 rounded-md">Área do Cliente</a>
+                <a href="https://wa.me/5518996102243" target="_blank" class="block w-full text-center mt-4 bg-gradient-brand text-white px-6 py-3 rounded-xl font-display font-semibold">Assinar Agora</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="relative pt-32 pb-20 lg:pt-40 lg:pb-32 overflow-hidden border-b border-brand-primary/10">
+        <!-- Background Overlay -->
+        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center opacity-10 mix-blend-screen"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-brand-dark/80 via-brand-dark to-brand-dark"></div>
+        
+        <!-- Glowing Orbs -->
+        <div class="absolute top-20 left-10 w-96 h-96 bg-brand-primary rounded-full mix-blend-screen filter blur-[150px] opacity-30"></div>
+        <div class="absolute bottom-10 right-10 w-96 h-96 bg-brand-gradEnd rounded-full mix-blend-screen filter blur-[150px] opacity-20"></div>
+
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                
+                <!-- Text Content -->
+                <div class="text-left z-10">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-brand-primary/30 bg-brand-primary/10 backdrop-blur-sm mb-8 text-sm font-medium text-brand-light">
+                        <span class="w-2 h-2 rounded-full bg-brand-primary animate-pulse"></span>
+                        O Futuro da Conexão Chegou
+                    </div>
+                    
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-display font-bold tracking-tight mb-6 leading-tight">
+                        A Internet feita para <br />
+                        <span class="gradient-text glow-text">não te deixar na mão</span>
+                    </h1>
+                    
+                    <p class="mt-4 text-lg md:text-xl text-gray-400 mb-10 max-w-lg">
+                        Navegue, assista filmes, jogue online e trabalhe em casa com a estabilidade e a ultra velocidade que só a Fiberata oferece.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#planos" class="bg-gradient-brand text-white px-8 py-4 rounded-full font-display font-bold text-lg hover:shadow-[0_0_30px_rgba(138,43,255,0.5)] transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center gap-2">
+                            Ver Planos
+                            <i class="ph-bold ph-rocket-launch"></i>
+                        </a>
+                        <a href="https://wa.me/5518996102243" target="_blank" class="glass text-white border border-white/20 px-8 py-4 rounded-full font-bold text-lg hover:bg-white/5 transition-all duration-300 flex items-center justify-center gap-2">
+                            <i class="ph-fill ph-whatsapp-logo text-[#25D366] text-xl"></i>
+                            Falar com Atendente
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="relative hidden lg:block z-10">
+                    <div class="absolute inset-0 bg-gradient-brand rounded-3xl transform rotate-3 scale-105 opacity-20 blur-xl animate-pulse"></div>
+                    <img src="https://ldpartners.com.br/wp-content/uploads/2026/07/SCR-20260703-lhyc.jpeg" 
+                         alt="Tecnologia Fibra Óptica" 
+                         class="relative rounded-3xl border border-brand-primary/30 shadow-[0_0_40px_rgba(138,43,255,0.3)] animate-float w-full object-cover h-[500px]">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NOVA DOBRA: Sobre Nós / Estilo de Vida -->
+    <section id="sobre" class="py-24 relative bg-[#030303] overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <!-- Imagem -->
+                <div class="relative order-2 lg:order-1">
+                    <img src="https://images.unsplash.com/photo-1600861194942-f883de0dfe96?q=80&w=1000&auto=format&fit=crop" 
+                         alt="Família e Streaming" 
+                         class="rounded-3xl border border-white/10 shadow-2xl relative z-10 w-full h-[450px] object-cover grayscale hover:grayscale-0 transition-all duration-700">
+                    <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-brand-primary rounded-full mix-blend-screen filter blur-[80px] opacity-40"></div>
+                </div>
+
+                <!-- Texto -->
+                <div class="order-1 lg:order-2">
+                    <span class="text-brand-primary font-display font-bold tracking-widest uppercase text-sm mb-2 block">Conexão Real</span>
+                    <h2 class="text-3xl md:text-4xl font-display font-bold mb-6">Feita para acompanhar o seu <span class="gradient-text">ritmo de vida</span></h2>
+                    <p class="text-gray-400 text-lg mb-8 leading-relaxed">
+                        Esqueça as telas de carregamento. A tecnologia 100% fibra óptica da Fiberata leva o sinal diretamente para dentro da sua casa, garantindo que toda a família esteja conectada ao mesmo tempo, sem perder desempenho.
+                    </p>
+                    
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5">
+                            <div class="bg-brand-primary/20 p-2 rounded-lg text-brand-primary">
+                                <i class="ph-fill ph-monitor-play text-2xl"></i>
+                            </div>
+                            <span class="font-medium text-brand-light">Streaming em 4K sem travamentos</span>
+                        </li>
+                        <li class="flex items-center gap-4 bg-white/5 p-4 rounded-xl border border-white/5">
+                            <div class="bg-brand-primary/20 p-2 rounded-lg text-brand-primary">
+                                <i class="ph-fill ph-laptop text-2xl"></i>
+                            </div>
+                            <span class="font-medium text-brand-light">Home Office com videochamadas estáveis</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Vantagens Section -->
+    <section id="vantagens" class="py-24 relative bg-brand-dark border-t border-b border-brand-primary/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-display font-bold mb-4">Por que escolher a <span class="gradient-text glow-text">Fiberata?</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg">Inovação e tecnologia de ponta para entregar a melhor experiência de navegação.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Card 1 -->
+                <div class="bg-brand-card p-8 rounded-3xl border border-brand-primary/20 hover:border-brand-primary transition-colors glow-box relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gradStart filter blur-[60px] opacity-10 group-hover:opacity-30 transition-opacity"></div>
+                    <div class="w-16 h-16 bg-brand-primary/10 rounded-2xl flex items-center justify-center mb-6 text-brand-primary border border-brand-primary/30">
+                        <i class="ph ph-rocket-launch text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-display font-bold mb-3 text-white">Ultra Velocidade</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">Downloads em segundos e streaming sem travamentos. Viva a experiência da verdadeira fibra óptica de ponta a ponta.</p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-brand-card p-8 rounded-3xl border border-brand-primary/20 hover:border-brand-primary transition-colors glow-box relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-primary filter blur-[60px] opacity-10 group-hover:opacity-30 transition-opacity"></div>
+                    <div class="w-16 h-16 bg-brand-primary/10 rounded-2xl flex items-center justify-center mb-6 text-brand-primary border border-brand-primary/30">
+                        <i class="ph ph-game-controller text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-display font-bold mb-3 text-white">Ping Baixo (Gamer)</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">Rotas otimizadas para os principais servidores de jogos. Jogue online com a máxima performance, estabilidade e sem lag.</p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-brand-card p-8 rounded-3xl border border-brand-primary/20 hover:border-brand-primary transition-colors glow-box relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gradEnd filter blur-[60px] opacity-10 group-hover:opacity-30 transition-opacity"></div>
+                    <div class="w-16 h-16 bg-brand-primary/10 rounded-2xl flex items-center justify-center mb-6 text-brand-primary border border-brand-primary/30">
+                        <i class="ph ph-headset text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-display font-bold mb-3 text-white">Suporte Humanizado</h3>
+                    <p class="text-gray-400 leading-relaxed text-sm">Nossa equipe está sempre pronta para te atender de forma rápida, ágil e eficiente, sem robôs chatos e enrolação.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Planos Section -->
+    <section id="planos" class="py-24 relative bg-[#020202]">
+        <!-- Background Elements -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-full bg-brand-primary/10 blur-[150px] rounded-full pointer-events-none"></div>
+        
+        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <span class="text-brand-primary font-display font-bold tracking-widest uppercase text-sm">Nossas Ofertas</span>
+                <h2 class="text-4xl md:text-5xl font-display font-bold mt-2 mb-4">Escolha seu <span class="gradient-text">Plano</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto text-lg">Instalação rápida e suporte premium incluso em todos os pacotes.</p>
+            </div>
+
+            <!-- Grid de Planos -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 xl:gap-8">
+                
+                <!-- PLANO START -->
+                <div class="bg-brand-card rounded-3xl border border-white/10 p-8 flex flex-col hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gray-800 group-hover:bg-brand-primary transition-colors"></div>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-display font-bold text-white mb-2">START</h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-display font-black text-brand-primary">200</span>
+                            <span class="text-xl font-display font-bold text-gray-500">MEGA</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed">Ideal para redes sociais, vídeos e uso diário com qualidade.</p>
+                    <div class="mb-8 border-t border-white/10 pt-6">
+                        <span class="text-sm text-gray-500 font-medium">Investimento mensal</span>
+                        <div class="flex items-end gap-1 text-white mt-1">
+                            <span class="text-xl font-bold">R$</span>
+                            <span class="text-4xl font-display font-black">89<span class="text-2xl text-gray-400">,99</span></span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/5518996102243?text=Ol%C3%A1!%20Gostaria%20de%20assinar%20o%20PLANO%20START%20(200%20MEGA)%20por%20R$%2089,99/m%C3%AAs." target="_blank" 
+                       class="w-full block text-center bg-white/5 hover:bg-brand-primary text-white border border-white/10 hover:border-brand-primary py-3.5 rounded-xl font-display font-bold transition-all duration-300">
+                        Assinar START
+                    </a>
+                </div>
+
+                <!-- PLANO HOME -->
+                <div class="bg-brand-card rounded-3xl border border-white/10 p-8 flex flex-col hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gray-800 group-hover:bg-brand-primary transition-colors"></div>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-display font-bold text-white mb-2">HOME</h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-display font-black text-brand-primary">500</span>
+                            <span class="text-xl font-display font-bold text-gray-500">MEGA</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed">Mais velocidade para vários aparelhos conectados simultaneamente.</p>
+                    <div class="mb-8 border-t border-white/10 pt-6">
+                        <span class="text-sm text-gray-500 font-medium">Investimento mensal</span>
+                        <div class="flex items-end gap-1 text-white mt-1">
+                            <span class="text-xl font-bold">R$</span>
+                            <span class="text-4xl font-display font-black">99<span class="text-2xl text-gray-400">,99</span></span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/5518996102243?text=Ol%C3%A1!%20Gostaria%20de%20assinar%20o%20PLANO%20HOME%20(500%20MEGA)%20por%20R$%2099,99/m%C3%AAs." target="_blank" 
+                       class="w-full block text-center bg-white/5 hover:bg-brand-primary text-white border border-white/10 hover:border-brand-primary py-3.5 rounded-xl font-display font-bold transition-all duration-300">
+                        Assinar HOME
+                    </a>
+                </div>
+
+                <!-- PLANO FAMILY (Highlight) -->
+                <div class="bg-brand-card rounded-3xl border-2 border-brand-primary shadow-[0_0_40px_rgba(138,43,255,0.2)] p-8 flex flex-col hover:-translate-y-2 transition-all duration-300 relative overflow-hidden transform lg:-translate-y-4">
+                    <!-- Badge Mais Vendido -->
+                    <div class="absolute top-4 right-0 bg-gradient-brand text-white text-xs font-display font-bold px-4 py-1.5 rounded-l-full shadow-lg">
+                        MAIS VENDIDO
+                    </div>
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-brand"></div>
+                    
+                    <div class="mb-6 mt-2">
+                        <h3 class="text-2xl font-display font-bold text-white mb-2">FAMILY</h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-5xl font-display font-black gradient-text">700</span>
+                            <span class="text-xl font-display font-bold text-brand-primary">MEGA</span>
+                        </div>
+                    </div>
+                    <p class="text-brand-light text-sm mb-8 flex-grow leading-relaxed">Perfeito para famílias grandes, streaming de alta qualidade e home office intensivo.</p>
+                    <div class="mb-8 border-t border-brand-primary/30 pt-6">
+                        <span class="text-sm text-brand-primary font-medium">Melhor Custo-Benefício</span>
+                        <div class="flex items-end gap-1 text-white mt-1">
+                            <span class="text-xl font-bold">R$</span>
+                            <span class="text-4xl font-display font-black">119<span class="text-2xl text-gray-300">,99</span></span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/5518996102243?text=Ol%C3%A1!%20Gostaria%20de%20assinar%20o%20PLANO%20FAMILY%20(700%20MEGA)%20por%20R$%20119,99/m%C3%AAs." target="_blank" 
+                       class="w-full block text-center bg-gradient-brand text-white shadow-lg py-4 rounded-xl font-display font-bold transition-all duration-300 hover:shadow-[0_0_25px_rgba(138,43,255,0.5)] text-lg">
+                        Assinar FAMILY
+                    </a>
+                </div>
+
+                <!-- PLANO GAMER -->
+                <div class="bg-brand-card rounded-3xl border border-white/10 p-8 flex flex-col hover:-translate-y-2 transition-transform duration-300 relative overflow-hidden group">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gray-800 group-hover:bg-brand-gradStart transition-colors"></div>
+                    <div class="mb-6">
+                        <h3 class="text-2xl font-display font-bold text-white mb-2 flex items-center gap-2">
+                            GAMER
+                            <i class="ph-fill ph-lightning text-brand-gradStart"></i>
+                        </h3>
+                        <div class="flex items-baseline gap-1">
+                            <span class="text-4xl font-display font-black text-white">1000</span>
+                            <span class="text-xl font-display font-bold text-gray-500">MEGA</span>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-8 flex-grow leading-relaxed">Máxima performance para jogos online competitivos, lives e downloads extremos.</p>
+                    <div class="mb-8 border-t border-white/10 pt-6">
+                        <span class="text-sm text-gray-500 font-medium">Investimento mensal</span>
+                        <div class="flex items-end gap-1 text-white mt-1">
+                            <span class="text-xl font-bold">R$</span>
+                            <span class="text-4xl font-display font-black">159<span class="text-2xl text-gray-400">,90</span></span>
+                        </div>
+                    </div>
+                    <a href="https://wa.me/5518996102243?text=Ol%C3%A1!%20Gostaria%20de%20assinar%20o%20PLANO%20GAMER%20(1000%20MEGA)%20por%20R$%20159,90/m%C3%AAs." target="_blank" 
+                       class="w-full block text-center bg-white/5 hover:bg-brand-gradStart text-white border border-white/10 hover:border-brand-gradStart py-3.5 rounded-xl font-display font-bold transition-all duration-300">
+                        Assinar GAMER
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- NOVA DOBRA: App / Central do Assinante -->
+    <section class="py-20 relative bg-brand-dark border-t border-brand-primary/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-brand-card rounded-3xl border border-brand-primary/20 overflow-hidden relative shadow-[0_0_50px_rgba(138,43,255,0.1)]">
+                <!-- Efeito Gradiente Interno -->
+                <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-brand-primary/10 to-transparent pointer-events-none"></div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 items-center">
+                    <div class="p-10 md:p-16 z-10">
+                        <h2 class="font-display text-3xl md:text-4xl font-bold mb-4">Sua internet na <span class="text-brand-primary">palma da mão</span></h2>
+                        <p class="text-gray-400 text-lg mb-8">Com a nossa Central do Assinante, você tem total controle sobre sua conexão de forma rápida e segura.</p>
+                        
+                        <div class="space-y-6 mb-8">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary flex-shrink-0 mt-1">
+                                    <i class="ph-bold ph-barcode text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold font-display">2ª Via de Faturas</h4>
+                                    <p class="text-sm text-gray-500 mt-1">Acesse e pague seus boletos com um clique.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-full bg-brand-primary/20 flex items-center justify-center text-brand-primary flex-shrink-0 mt-1">
+                                    <i class="ph-bold ph-headset text-xl"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold font-display">Suporte Ágil</h4>
+                                    <p class="text-sm text-gray-500 mt-1">Abra chamados técnicos diretamente pelo portal.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a href="https://fiberata.com.br/central/login.hhvm" target="_blank" class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 rounded-full font-bold hover:bg-brand-light transition-colors">
+                            Acessar Central <i class="ph-bold ph-arrow-right"></i>
+                        </a>
+                    </div>
+                    
+                    <div class="relative h-64 md:h-full hidden md:block">
+                        <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=1000&auto=format&fit=crop" 
+                             alt="Pessoa usando celular" 
+                             class="absolute inset-0 w-full h-full object-cover rounded-r-3xl border-l border-brand-primary/20 opacity-80 mix-blend-luminosity hover:mix-blend-normal transition-all duration-500">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#020202] border-t border-brand-primary/20 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 mb-12">
+                
+                <!-- Brand Info -->
+                <div class="col-span-1 md:col-span-2">
+                    <a href="#" class="inline-block mb-6">
+                        <span class="text-3xl font-display font-bold tracking-wider">
+                            <span class="text-white">FIBER</span><span class="text-brand-primary">ATA</span>
+                        </span>
+                    </a>
+                    <p class="text-gray-400 text-sm leading-relaxed max-w-sm mb-6">
+                        Levando a melhor conexão 100% fibra óptica para sua casa. Velocidade, estabilidade e suporte técnico de excelência.
+                    </p>
+                    <div class="flex space-x-4">
+                        <!-- Instagram Link -->
+                        <a href="https://www.instagram.com/fiber.ata/" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-brand-primary hover:shadow-[0_0_15px_rgba(138,43,255,0.5)] transition-all duration-300">
+                            <i class="ph ph-instagram-logo text-xl"></i>
+                        </a>
+                        <!-- WhatsApp Link -->
+                        <a href="https://wa.me/5518996102243" target="_blank" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-white hover:bg-[#25D366] hover:shadow-[0_0_15px_rgba(37,211,102,0.5)] transition-all duration-300">
+                            <i class="ph ph-whatsapp-logo text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="text-white font-display font-bold mb-4 uppercase text-sm tracking-wider">Links Úteis</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#inicio" class="text-gray-400 hover:text-brand-primary text-sm transition-colors">Início</a></li>
+                        <li><a href="#sobre" class="text-gray-400 hover:text-brand-primary text-sm transition-colors">Sobre Nós</a></li>
+                        <li><a href="#vantagens" class="text-gray-400 hover:text-brand-primary text-sm transition-colors">Vantagens</a></li>
+                        <li><a href="#planos" class="text-gray-400 hover:text-brand-primary text-sm transition-colors">Nossos Planos</a></li>
+                        <li><a href="https://fiberata.com.br/central/login.hhvm" target="_blank" class="text-brand-primary hover:text-white text-sm transition-colors font-medium">Área do Cliente</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="text-white font-display font-bold mb-4 uppercase text-sm tracking-wider">Atendimento</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-whatsapp-logo text-brand-primary text-xl mt-0.5"></i>
+                            <div>
+                                <span class="block text-gray-400 text-xs mb-1">WhatsApp Comercial</span>
+                                <a href="https://wa.me/5518996102243" target="_blank" class="text-white hover:text-brand-primary transition-colors font-medium text-sm">(18) 99610-2243</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3">
+                            <i class="ph-fill ph-clock text-brand-primary text-xl mt-0.5"></i>
+                            <div>
+                                <span class="block text-gray-400 text-xs mb-1">Horário de Atendimento</span>
+                                <span class="text-white text-sm">Seg a Sáb - 08h às 18h</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- Copyright -->
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-gray-500 text-sm text-center md:text-left">
+                    &copy; 2026 Fiberata. Todos os direitos reservados.
+                </p>
+                <div class="flex gap-4 text-sm text-gray-500">
+                    <span class="font-display tracking-widest text-xs uppercase">Internet de Alta Performance</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const icon = btn.querySelector('i');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            if(menu.classList.contains('hidden')) {
+                icon.classList.remove('ph-x');
+                icon.classList.add('ph-list');
+            } else {
+                icon.classList.remove('ph-list');
+                icon.classList.add('ph-x');
+            }
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                icon.classList.remove('ph-x');
+                icon.classList.add('ph-list');
+            });
+        });
+
+        // Navbar blur effect on scroll
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 20) {
+                nav.classList.add('bg-black/80');
+                nav.classList.add('shadow-lg');
+                nav.classList.add('shadow-brand-primary/10');
+            } else {
+                nav.classList.remove('bg-black/80');
+                nav.classList.remove('shadow-lg');
+                nav.classList.remove('shadow-brand-primary/10');
+            }
+        });
+    </script>
+</body>
+</html>
